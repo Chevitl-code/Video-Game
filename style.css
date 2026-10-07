@@ -1,0 +1,1035 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #070b10;
+    color: white;
+    overflow: hidden;
+}
+
+.juego {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==============================
+   BARRA SUPERIOR
+============================== */
+
+.barra {
+    height: 82px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 28px;
+
+    background: #0c1219;
+    border-bottom: 1px solid #202c36;
+
+    position: relative;
+    z-index: 100;
+}
+
+/* LOGO */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-width: 240px;
+}
+
+.logo-dino {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #151e27;
+    border: 1px solid #293743;
+    border-radius: 14px;
+
+    font-size: 31px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.logo h1 {
+    margin: 0;
+
+    font-size: 23px;
+    letter-spacing: 2px;
+}
+
+.logo h1 span {
+    color: #72f58a;
+}
+
+.logo p {
+    margin: 3px 0 0;
+
+    color: #697783;
+
+    font-size: 8px;
+    letter-spacing: 2px;
+}
+
+/* PREGUNTA */
+
+.pregunta-box {
+    text-align: center;
+
+    background: #101820;
+    border: 1px solid #25333e;
+
+    border-radius: 13px;
+
+    padding: 9px 35px;
+
+    min-width: 280px;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,0.03),
+        0 8px 25px rgba(0,0,0,0.15);
+}
+
+.pregunta-box small {
+    color: #667581;
+
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.pregunta-box h2 {
+    margin: 4px 0 0;
+
+    font-size: 21px;
+    color: white;
+}
+
+/* ESTADÍSTICAS */
+
+.estadisticas {
+    display: flex;
+    gap: 8px;
+}
+
+.dato,
+.tiempo {
+    min-width: 82px;
+
+    padding: 8px 12px;
+
+    text-align: center;
+
+    background: #111a22;
+    border: 1px solid #273640;
+
+    border-radius: 10px;
+
+    transition: 0.25s ease;
+}
+
+.dato small,
+.tiempo small {
+    display: block;
+
+    color: #65737e;
+
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.dato strong,
+.tiempo strong {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 17px;
+}
+
+.tiempo {
+    border-color: #31553b;
+}
+
+#tiempo {
+    color: #72f58a;
+}
+
+.tiempo.peligro {
+    border-color: #d94a55;
+
+    box-shadow:
+        0 0 18px rgba(217, 74, 85, 0.25);
+
+    animation: peligro 0.7s infinite alternate;
+}
+
+.tiempo.peligro #tiempo {
+    color: #ff5966;
+}
+
+@keyframes peligro {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.04);
+    }
+
+}
+
+/* ==============================
+   MAPA
+============================== */
+
+#mapa {
+    position: relative;
+
+    flex: 1;
+
+    overflow: hidden;
+
+    background: #111820;
+}
+
+/* cuadrícula */
+
+#mapa::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    pointer-events: none;
+}
+
+/* borde */
+
+#mapa::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 16px;
+
+    border: 1px solid #202d37;
+
+    border-radius: 18px;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+/* ==============================
+   DECORACIÓN DEL MAPA
+============================== */
+
+.sol,
+.montana,
+.rio,
+.arbol,
+.camino {
+    pointer-events: none;
+}
+
+.sol {
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    right: 7%;
+    top: 5%;
+
+    border-radius: 50%;
+
+    background: rgba(114, 245, 138, 0.04);
+
+    filter: blur(3px);
+}
+
+.montana {
+    position: absolute;
+
+    width: 260px;
+    height: 100px;
+
+    background: #18242c;
+
+    border-radius: 50% 50% 0 0;
+
+    bottom: -30px;
+}
+
+.montana1 {
+    left: 5%;
+}
+
+.montana2 {
+    right: 10%;
+
+    width: 340px;
+
+    background: #151f27;
+}
+
+.rio {
+    position: absolute;
+
+    width: 160px;
+    height: 120%;
+
+    left: 47%;
+    top: -10%;
+
+    background: #0d2029;
+
+    transform: rotate(9deg);
+
+    opacity: 0.65;
+}
+
+.arbol {
+    position: absolute;
+
+    font-size: 30px;
+
+    opacity: 0.5;
+
+    filter: grayscale(0.4);
+}
+
+.arbol1 {
+    left: 5%;
+    top: 25%;
+}
+
+.arbol2 {
+    left: 17%;
+    top: 65%;
+}
+
+.arbol3 {
+    left: 88%;
+    top: 27%;
+}
+
+.arbol4 {
+    left: 72%;
+    top: 75%;
+}
+
+.arbol5 {
+    left: 58%;
+    top: 20%;
+}
+
+.arbol6 {
+    left: 35%;
+    top: 75%;
+}
+
+/* ==============================
+   CAMINOS
+============================== */
+
+.camino {
+    position: absolute;
+
+    height: 13px;
+
+    background: #1b252d;
+
+    border-top: 1px solid #293640;
+    border-bottom: 1px solid #293640;
+
+    opacity: 0.8;
+
+    transform: rotate(-8deg);
+}
+
+.camino1 {
+    width: 70%;
+
+    left: 15%;
+    top: 48%;
+}
+
+.camino2 {
+    width: 75%;
+
+    left: 12%;
+    top: 65%;
+
+    transform: rotate(7deg);
+}
+
+/* ==============================
+   RESPUESTAS
+============================== */
+
+.respuesta {
+    position: absolute;
+
+    width: 92px;
+    height: 92px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: #1a252e;
+
+    border: 2px solid #34434e;
+
+    color: #eaf1f5;
+
+    font-size: 25px;
+    font-weight: bold;
+
+    box-shadow:
+        0 12px 25px rgba(0,0,0,0.3),
+        inset 0 1px rgba(255,255,255,0.05);
+
+    z-index: 10;
+
+    pointer-events: none;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+/* detalle */
+
+.respuesta::before {
+    content: "";
+
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    left: 10px;
+    top: 10px;
+
+    border-radius: 50%;
+
+    background: #3d4d57;
+
+    opacity: 0.8;
+}
+
+.respuesta::after {
+    content: "";
+
+    position: absolute;
+
+    width: 50%;
+
+    height: 3px;
+
+    bottom: 9px;
+
+    border-radius: 10px;
+
+    background: #53636e;
+
+    opacity: 0.45;
+}
+
+/* correcta */
+
+.respuesta.correcta {
+    background: #176b3d;
+
+    border-color: #72f58a;
+
+    box-shadow:
+        0 0 30px rgba(114,245,138,0.45),
+        0 15px 30px rgba(0,0,0,0.3);
+
+    transform: scale(1.08);
+}
+
+/* incorrecta */
+
+.respuesta.incorrecta {
+    background: #7a2732;
+
+    border-color: #ff5966;
+
+    box-shadow:
+        0 0 30px rgba(255,89,102,0.45),
+        0 15px 30px rgba(0,0,0,0.3);
+
+    transform: scale(1.08);
+}
+
+/* ==============================
+   POSICIONES DE RESPUESTAS
+============================== */
+
+.r1 {
+    left: 10%;
+    top: 15%;
+}
+
+.r2 {
+    left: 32%;
+    top: 12%;
+}
+
+.r3 {
+    left: 57%;
+    top: 16%;
+}
+
+.r4 {
+    left: 82%;
+    top: 25%;
+}
+
+.r5 {
+    left: 18%;
+    top: 55%;
+}
+
+.r6 {
+    left: 42%;
+    top: 65%;
+}
+
+.r7 {
+    left: 65%;
+    top: 50%;
+}
+
+.r8 {
+    left: 82%;
+    top: 72%;
+}
+
+/* ==============================
+   DINOSAURIO
+============================== */
+
+#dinosaurio {
+    position: absolute;
+
+    width: 72px;
+    height: 72px;
+
+    left: 3%;
+    top: 50%;
+
+    z-index: 30;
+
+    /* IMPORTANTE:
+       no usamos transition en left/top
+       porque ahora JS mueve el dino
+       suavemente con requestAnimationFrame.
+    */
+}
+
+.personaje {
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 53px;
+
+    user-select: none;
+
+    filter:
+        drop-shadow(0 8px 5px rgba(0,0,0,0.5));
+
+    transition: transform 0.08s linear;
+}
+
+.sombra {
+    position: absolute;
+
+    width: 48px;
+    height: 13px;
+
+    left: 12px;
+    bottom: 0;
+
+    background: rgba(0,0,0,0.4);
+
+    border-radius: 50%;
+
+    filter: blur(4px);
+
+    z-index: -1;
+}
+
+/* ==============================
+   SALTO
+============================== */
+
+#dinosaurio.saltando .personaje {
+    animation: salto 0.42s ease;
+}
+
+@keyframes salto {
+
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    35% {
+        transform: translateY(-28px) scale(1.08);
+    }
+
+    65% {
+        transform: translateY(-20px) scale(1.05);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+/* ==============================
+   MENSAJE
+============================== */
+
+#mensaje {
+    position: absolute;
+
+    left: 50%;
+    top: 25px;
+
+    transform: translateX(-50%) translateY(-10px);
+
+    padding: 11px 24px;
+
+    background: rgba(12,18,25,0.94);
+
+    border: 1px solid #31414d;
+
+    border-radius: 12px;
+
+    color: #dce5ea;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+
+    pointer-events: none;
+
+    z-index: 80;
+}
+
+#mensaje.mostrar {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+/* ==============================
+   CONTROLES
+============================== */
+
+.controles,
+.objetivo {
+    position: absolute;
+
+    bottom: 20px;
+
+    padding: 12px 15px;
+
+    background: rgba(11,17,23,0.94);
+
+    border: 1px solid #293640;
+
+    border-radius: 12px;
+
+    z-index: 60;
+
+    font-size: 11px;
+
+    color: #7f8c96;
+
+    backdrop-filter: blur(5px);
+}
+
+.controles {
+    left: 25px;
+}
+
+.objetivo {
+    right: 25px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    max-width: 270px;
+}
+
+.controles strong,
+.objetivo strong {
+    color: white;
+}
+
+.teclas {
+    display: flex;
+    gap: 4px;
+
+    margin: 7px 0;
+}
+
+.teclas span {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #18232c;
+
+    border: 1px solid #354650;
+
+    border-radius: 5px;
+
+    color: #dce6eb;
+
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.controles p,
+.objetivo p {
+    margin: 3px 0;
+}
+
+.espacio {
+    margin-top: 6px;
+
+    padding: 5px 12px;
+
+    display: inline-block;
+
+    background: #18232c;
+
+    border: 1px solid #354650;
+
+    border-radius: 5px;
+
+    font-size: 9px;
+}
+
+.icono {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #1d6b3d;
+
+    color: #72f58a;
+
+    font-weight: bold;
+}
+
+/* ==============================
+   FOOTER
+============================== */
+
+footer {
+    height: 32px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 25px;
+
+    background: #0a1016;
+
+    border-top: 1px solid #1c2831;
+
+    color: #53616c;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+footer span:first-child {
+    color: #72f58a;
+}
+
+/* ==============================
+   PANTALLAS
+============================== */
+
+.pantalla {
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(3,6,9,0.88);
+
+    backdrop-filter: blur(8px);
+
+    z-index: 500;
+}
+
+.pantalla.activa {
+    display: flex;
+}
+
+.tarjeta {
+    width: 420px;
+
+    padding: 42px;
+
+    text-align: center;
+
+    background: #111a22;
+
+    border: 1px solid #31414c;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.55);
+
+    animation: aparecer 0.35s ease;
+}
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+.dinos {
+    font-size: 45px;
+
+    margin-bottom: 15px;
+}
+
+.dinoMuerto {
+    font-size: 65px;
+
+    margin-bottom: 15px;
+}
+
+.tarjeta small {
+    color: #71808b;
+
+    letter-spacing: 2px;
+}
+
+.tarjeta h1 {
+    margin: 8px 0 12px;
+
+    font-size: 38px;
+}
+
+.tarjeta p {
+    color: #87949e;
+
+    line-height: 1.5;
+
+    margin-bottom: 25px;
+}
+
+.decimas {
+    display: inline-block;
+
+    padding: 8px 18px;
+
+    border-radius: 20px;
+
+    background: rgba(114,245,138,0.1);
+
+    border: 1px solid #315c3e;
+
+    color: #72f58a;
+
+    font-weight: bold;
+}
+
+.tarjeta button {
+    border: none;
+
+    padding: 13px 27px;
+
+    border-radius: 10px;
+
+    background: #72f58a;
+
+    color: #071009;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.tarjeta button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(114,245,138,0.25);
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 900px) {
+
+    .logo {
+        min-width: auto;
+    }
+
+    .logo > div:last-child {
+        display: none;
+    }
+
+    .pregunta-box {
+        min-width: 220px;
+    }
+
+    .respuesta {
+        width: 75px;
+        height: 75px;
+
+        font-size: 21px;
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .barra {
+        height: 70px;
+
+        padding: 0 12px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .pregunta-box {
+        min-width: 170px;
+
+        padding: 7px 12px;
+    }
+
+    .pregunta-box h2 {
+        font-size: 16px;
+    }
+
+    .dato,
+    .tiempo {
+        min-width: 55px;
+
+        padding: 7px 5px;
+    }
+
+    .dato strong,
+    .tiempo strong {
+        font-size: 14px;
+    }
+
+    .controles,
+    .objetivo {
+        display: none;
+    }
+
+    footer {
+        font-size: 8px;
+    }
+
+    .tarjeta {
+        width: calc(100% - 30px);
+
+        padding: 30px 20px;
+    }
+
+}

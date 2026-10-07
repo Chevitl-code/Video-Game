@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Dino Math</title>
+
+    <link rel="stylesheet"
+        href="style.css">
+
+</head>
+
+<body>
+
+    <div class="juego">
+
+        <!-- =================================
+             BARRA SUPERIOR
+        ================================== -->
+
+        <header class="barra">
+
+            <div class="logo">
+
+                <div class="logo-dino">
+                    🦖
+                </div>
+
+                <div>
+                    <h1>DINO<span>MATH</span></h1>
+
+                    <p>MATHEMATICAL ADVENTURE</p>
+                </div>
+
+            </div>
+
+
+            <div class="pregunta-box">
+
+                <small>RESUELVE LA OPERACIÓN</small>
+
+                <h2 id="pregunta">
+                    Cargando...
+                </h2>
+
+            </div>
+
+
+            <div class="estadisticas">
+
+                <div class="dato">
+
+                    <small>NIVEL</small>
+
+                    <strong id="nivel">
+                        1 / 5
+                    </strong>
+
+                </div>
+
+
+                <div class="dato">
+
+                    <small>PUNTOS</small>
+
+                    <strong id="puntos">
+                        0000
+                    </strong>
+
+                </div>
+
+
+                <div class="tiempo"
+                    id="cajaTiempo">
+
+                    <small>TIEMPO</small>
+
+                    <strong id="tiempo">
+                        30
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================
+             MAPA
+        ================================== -->
+
+        <main id="mapa">
+
+
+            <!-- Decoración -->
+
+            <div class="sol"></div>
+
+            <div class="montana montana1"></div>
+            <div class="montana montana2"></div>
+
+            <div class="rio"></div>
+
+
+            <!-- Árboles -->
+
+            <div class="arbol arbol1">🌲</div>
+            <div class="arbol arbol2">🌲</div>
+            <div class="arbol arbol3">🌳</div>
+            <div class="arbol arbol4">🌲</div>
+            <div class="arbol arbol5">🌳</div>
+            <div class="arbol arbol6">🌲</div>
+
+
+            <!-- Caminos -->
+
+            <div class="camino camino1"></div>
+            <div class="camino camino2"></div>
+
+    <!-- =================================
+         RESPUESTAS
+    ================================== -->
+
+        <div class="respuesta r1"></div>
+        <div class="respuesta r2"></div>
+        <div class="respuesta r3"></div>
+        <div class="respuesta r4"></div>
+        <div class="respuesta r5"></div>
+        <div class="respuesta r6"></div>
+        <div class="respuesta r7"></div>
+        <div class="respuesta r8"></div>
+
+
+            <!-- =================================
+                 DINOSAURIO
+            ================================== -->
+
+            <div id="dinosaurio">
+
+                <div class="sombra"></div>
+
+                <div class="personaje">
+                    🦖
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 MENSAJE
+            ================================== -->
+
+            <div id="mensaje">
+                ENCUENTRA LA RESPUESTA
+            </div>
+
+
+            <!-- =================================
+                 CONTROLES
+            ================================== -->
+
+            <div class="controles">
+
+                <strong>CONTROLES</strong>
+
+                <div class="teclas">
+
+                    <span>W</span>
+
+                    <span>A</span>
+
+                    <span>S</span>
+
+                    <span>D</span>
+
+                </div>
+
+                <p>Mover dinosaurio</p>
+
+                <div class="espacio">
+                    SPACE
+                </div>
+
+                <p>Saltar</p>
+
+            </div>
+
+
+            <!-- Objetivo -->
+
+            <div class="objetivo">
+
+                <div class="icono">
+                    !
+                </div>
+
+                <div>
+
+                    <strong>OBJETIVO</strong>
+
+                    <p>
+                        Termina el tiempo sobre
+                        la respuesta correcta.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </main>
+
+
+        <!-- =================================
+             FOOTER
+        ================================== -->
+
+        <footer>
+
+            <span>
+                ● SISTEMA ACTIVO
+            </span>
+
+            <span>
+                DINO MATH © 2026
+            </span>
+
+        </footer>
+
+    </div>
+
+
+    <!-- =====================================
+         PANTALLA GANADORA
+    ====================================== -->
+
+    <div id="pantallaGanador"
+        class="pantalla">
+
+        <div class="tarjeta ganar">
+
+            <div class="dinos">
+                🦖 🦕 🦖
+            </div>
+
+            <small>
+                ¡MISIÓN COMPLETADA!
+            </small>
+
+            <h1>
+                ¡HAS GANADO!
+            </h1>
+
+            <div class="decimas">
+                +2 DÉCIMAS
+            </div>
+
+            <p>
+                Completaste los 5 niveles
+                matemáticos.
+            </p>
+
+            <strong id="puntosGanador">
+                0000 PUNTOS
+            </strong>
+
+            <button onclick="reiniciar()">
+                JUGAR DE NUEVO
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         PANTALLA PERDEDOR
+    ====================================== -->
+
+    <div id="pantallaPerder"
+        class="pantalla">
+
+        <div class="tarjeta perder">
+
+            <div class="dinoMuerto">
+                🦖
+            </div>
+
+            <small>
+                FIN DE LA PARTIDA
+            </small>
+
+            <h1>
+                ¡GAME OVER!
+            </h1>
+
+            <p id="motivoPerder">
+                Respuesta incorrecta.
+            </p>
+
+            <button onclick="reiniciar()">
+                INTENTAR DE NUEVO
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
